@@ -2,6 +2,7 @@
 #include <exception>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 #include <vector>
 #include "ArrayToXml.hpp"
 #include "CheckInput.hpp"
@@ -27,8 +28,10 @@ enum menuChose{
 };
 
 void PrintMsg(){
-    for(size_t i = 0; i < msgs.size(); ++i) 
-        std::cout << i + 1 << ". " << msgs[i] << std::endl;
+    size_t pos = 1;
+    std::for_each(msgs.begin(), msgs.end(), [&pos](const std::string &str){
+        std::cout << pos++ << ". " << str << std::endl;
+    });
 }
 
 using namespace atx;
