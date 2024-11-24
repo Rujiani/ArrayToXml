@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <exception>
 #include <iostream>
 #include <stdexcept>
@@ -49,9 +50,11 @@ int main(){
                     tag = chk::getStr();
                     std::cout << "Input size of the array\n>>> ";
                     size_t size = chk::getNum<size_t>();
-                    array.reserve(size);
+                    array.resize(size);
                     std::cout << "Input array's elements\n>>> ";
-                    for(size_t i = 0; i < size; ++i) array.push_back(chk::getNum<int>());
+                    std::generate(array.begin(), array.end(), [](){
+                        return chk::getNum<int>();
+                    });
                 }
                 break;
                 
@@ -78,10 +81,9 @@ int main(){
 
                 case PrintArray:
                     std::cout << "Name: " << name << "\nTag: " << tag << "\nArray:\n";
-                    for(int i = 0; i < array.size(); ++i){
-                        if(i) std::cout << " ";
-                        std::cout << array[i];
-                    }
+                    std::for_each(array.begin(), array.end(), [](int i){
+                        std::cout << i << ' ';
+                    });
                     std::cout << std::endl;
                 break;
 
