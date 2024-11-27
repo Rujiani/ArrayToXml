@@ -1,4 +1,5 @@
 #include "ArrayToXml.hpp"
+#include <algorithm>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -9,7 +10,9 @@ namespace atx{
     std::string array_to_xml(const std::vector<int> &array, const std::string &name, const std::string &tag){
         std::string res;
         res += std::format("<{}>", name);
-        for(auto i : array) res+= std::format("<{}>{}</{}>", tag, i, tag);
+        std::for_each(array.begin(), array.end(), [&res, &tag](int i){
+            res+= std::format("<{}>{}</{}>", tag, i, tag);
+        });
         res += std::format("</{}>", name);
         return res;
     }
